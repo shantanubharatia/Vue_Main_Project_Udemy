@@ -54,7 +54,7 @@ export default {
             throw error;
         }
         
-        const expiresIn = +responseData.expirationDate * 1000;
+        const expiresIn = +responseData.expiresIn * 1000;
         
         const expirationDate = new Date().getTime() + expiresIn;
 
@@ -65,6 +65,8 @@ export default {
         timer = setTimeout(() => {
             context.dispatch('autoLogout');
         }, expiresIn);
+
+        console.log("expires in", expiresIn);
 
         context.commit('setUser', {
             token: responseData.idToken,
